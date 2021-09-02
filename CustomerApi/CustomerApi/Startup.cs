@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomerApi.Data.Database;
+using CustomerApi.Messaging.Send.Options.v1;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerApi
 {
@@ -25,6 +29,18 @@ namespace CustomerApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
+            services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+
+            services.AddAutoMapper(typeof(Startup));
+            services.AddMvc().AddFluentValidation();
+
+            services.AddSwaggerGen();
+
+
+
+
             services.AddControllers();
         }
 
