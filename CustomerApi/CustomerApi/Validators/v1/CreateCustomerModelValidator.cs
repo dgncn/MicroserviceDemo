@@ -6,7 +6,7 @@ using CustomerApi.Models;
 using CustomerApi.Models.v1;
 using FluentValidation;
 
-namespace CustomerApi.Validators
+namespace CustomerApi.Validators.v1
 {
     public class CreateCustomerModelValidator : AbstractValidator<CreateCustomerModel>
     {
